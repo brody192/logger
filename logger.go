@@ -3,34 +3,20 @@ package logger
 import (
 	"os"
 
-	"golang.org/x/exp/slog"
+	"log/slog"
 )
 
 var (
-	// at this time Railway only supports JSON log messages if they have a "message" key
-	replacer = func(_ []string, a slog.Attr) slog.Attr {
-		if a.Key == "msg" {
-			a.Key = "message"
-		}
-		return a
-	}
-
-	stdoutHandler = slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
-		ReplaceAttr: replacer,
-	})
+	stdoutHandler = slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{})
 	//enable source
 	stdoutHandlerWithSource = slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
-		AddSource:   true,
-		ReplaceAttr: replacer,
+		AddSource: true,
 	})
 
-	stderrHandler = slog.NewJSONHandler(os.Stderr, &slog.HandlerOptions{
-		ReplaceAttr: replacer,
-	})
+	stderrHandler = slog.NewJSONHandler(os.Stderr, &slog.HandlerOptions{})
 	// enable source
 	stderrHandlerWithSource = slog.NewJSONHandler(os.Stderr, &slog.HandlerOptions{
-		AddSource:   true,
-		ReplaceAttr: replacer,
+		AddSource: true,
 	})
 
 	// sends logs to stdout

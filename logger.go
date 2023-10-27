@@ -2,6 +2,7 @@ package logger
 
 import (
 	"os"
+	"strings"
 
 	"log/slog"
 )
@@ -31,5 +32,5 @@ var (
 )
 
 func ErrAttr(err error) slog.Attr {
-	return slog.String("err", err.Error())
+	return slog.String("err", strings.TrimSpace(err.Error()))
 }

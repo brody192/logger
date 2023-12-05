@@ -3,6 +3,7 @@ package logger
 import (
 	"os"
 	"strings"
+	"time"
 
 	"log/slog"
 )
@@ -33,4 +34,14 @@ var (
 
 func ErrAttr(err error) slog.Attr {
 	return slog.String("err", strings.TrimSpace(err.Error()))
+}
+
+func Time(d time.Duration) slog.Attr {
+	return slog.Group("time",
+		slog.String("pretty", d.String()),
+		slog.Int64("nanoseconds", d.Nanoseconds()),
+		slog.Int64("microseconds", d.Microseconds()),
+		slog.Int64("milliseconds", d.Milliseconds()),
+		slog.Float64("seconds", d.Seconds()),
+	)
 }
